@@ -1,0 +1,706 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={ass3.R},
+  pdfauthor={Amor},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{ass3.R}
+\author{Amor}
+\date{2021-10-27}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(MASS)}
+\FunctionTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\CommentTok{\#install.packages("osqp")}
+\CommentTok{\#install.packages(\textquotesingle{}tinytex\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(osqp)}
+
+\CommentTok{\#install.packages("e1071")}
+\FunctionTok{library}\NormalTok{(e1071)}
+\FunctionTok{load}\NormalTok{(}\StringTok{"hw3.RData"}\NormalTok{, }\AttributeTok{verbose =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading objects:
+##   test
+##   train
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  num [1:200, 1:3] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+##  - attr(*, "dimnames")=List of 2
+##   ..$ : chr [1:200] "846" "2228" "3881" "3997" ...
+##   ..$ : chr [1:3] "Claim" "Net.Sales" "Age"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  num [1:200, 1:3] -1 1 -1 1 1 1 1 -1 1 -1 ...
+##  - attr(*, "dimnames")=List of 2
+##   ..$ : chr [1:200] "21296" "28596" "25135" "57807" ...
+##   ..$ : chr [1:3] "Claim" "Net.Sales" "Age"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?svm}
+
+\NormalTok{?}\FunctionTok{solve\_osqp}\NormalTok{( )}
+\NormalTok{?cbind}
+\NormalTok{?rbind}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Help on topic 'rbind' was found in the following packages:
+## 
+##   Package               Library
+##   data.table            /usr/local/lib/R/4.0/site-library
+##   base                  /usr/local/Cellar/r/4.0.3_2/lib/R/library
+## 
+## 
+## Using the first match ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_test }\OtherTok{=}\NormalTok{ test[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+\NormalTok{x\_test}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Net.Sales Age
+## 846       47.00  56
+## 2228      29.70  33
+## 3881      18.00  62
+## 3997      72.00  26
+## 4717      56.00  73
+## 4831      46.00  52
+## 5286       0.84  48
+## 6469      10.00  31
+## 6777      11.00  75
+## 7636      20.00  36
+## 8116     291.75  53
+## 8995      34.00  36
+## 10984     25.00  36
+## 11342     18.00  36
+## 11856     25.00  36
+## 11985     26.00  31
+## 12719     29.70  31
+## 13013     27.00  36
+## 13321     15.00  39
+## 13327     37.00  36
+## 14978     25.00  36
+## 15371     72.00  36
+## 15406     33.00  36
+## 16200     33.00  26
+## 16787     59.40  31
+## 17415     10.00  39
+## 17750     40.00  28
+## 19869     30.55  68
+## 19931     23.00  36
+## 20878     10.00  36
+## 21170     24.05  55
+## 21390     20.00  36
+## 21775     20.00  36
+## 22176     29.70  57
+## 22393     53.00  36
+## 23872     20.00  27
+## 23903     24.00  36
+## 24048     27.00  33
+## 24162    115.70  35
+## 24285     80.00  28
+## 24396      0.00  29
+## 24509     56.00  43
+## 24557    389.35  26
+## 25574     10.00  36
+## 25763     13.00  36
+## 27112     89.10  31
+## 27326     20.00  36
+## 27553      0.00  36
+## 28036     20.00  35
+## 28428     14.00  36
+## 28520    -75.00  22
+## 28621     22.00  36
+## 30065     29.00  36
+## 30112     42.00  36
+## 31465    109.00  27
+## 31634     13.12  48
+## 32157     15.00  55
+## 32667     14.00  27
+## 33314     28.00  36
+## 34865     32.00  36
+## 35064     50.50  26
+## 35312     20.00  36
+## 36143     69.30  40
+## 37157    108.90  46
+## 37521     20.00  36
+## 37671     75.00  55
+## 37828     14.00  36
+## 38099     23.00  59
+## 38127    252.85  27
+## 38708     81.00  36
+## 39724     29.70  47
+## 39939    112.00  59
+## 40349     11.00  36
+## 40508     37.00  41
+## 40513     20.00  37
+## 40580     -9.90  32
+## 41145     40.00  36
+## 41776     13.00  36
+## 43041     30.00  44
+## 43401     79.20  39
+## 43740    112.00  36
+## 45341     95.00  32
+## 45618     44.00  36
+## 45652     36.00  36
+## 45991    -19.80  46
+## 46174     12.00  36
+## 47084     62.00 118
+## 48658     19.80  38
+## 49173     21.00  36
+## 52306     10.00  36
+## 53030    112.00  36
+## 53041     24.00  36
+## 54446     28.00  36
+## 54624     24.00  30
+## 55336     58.00  26
+## 55344     35.00  48
+## 55377     13.50  31
+## 55949     49.50  34
+## 56417     20.00  44
+## 56527     69.30  31
+## 56879     39.60  54
+## 57752     47.50  33
+## 58672     36.00  35
+## 59173     69.00  28
+## 59582     27.00  35
+## 59814     18.00  56
+## 3639     112.00  40
+## 6211      82.55  28
+## 6269     112.00  61
+## 8550      24.00  36
+## 9468      29.00  29
+## 10751    291.75  35
+## 11169     40.00  28
+## 11208     49.80  69
+## 13739     59.40  53
+## 13761     69.30  30
+## 16173     49.50  31
+## 16616     84.00  36
+## 17580     39.60  30
+## 18129    252.85  44
+## 18162     42.00  36
+## 18883     37.00  36
+## 19073     90.00  36
+## 19488    187.85  28
+## 20105    187.85  46
+## 20345     82.55  32
+## 21756     69.30  33
+## 21930     22.00  59
+## 22267     50.00  35
+## 22871     17.55  32
+## 23338    252.85  44
+## 25426     20.00  39
+## 26482     20.00  38
+## 27101    252.85  36
+## 27281    252.85  38
+## 27892    252.85  49
+## 28143     40.00  36
+## 28156     84.00  36
+## 28602     29.70  37
+## 29448    252.85  46
+## 29449    252.85  52
+## 31000     15.00  69
+## 31214     25.00  27
+## 31428     23.00  20
+## 31692     79.20  60
+## 31946     23.00  32
+## 32180     17.00  29
+## 32194     29.50  33
+## 32205     42.00  20
+## 32378     94.50  24
+## 34550     97.00  41
+## 34750     13.50  26
+## 34783     59.40  50
+## 34915     62.00  23
+## 36273     30.55  30
+## 36406     23.50  28
+## 37144    252.85  36
+## 37205     15.00  36
+## 37818     20.00  36
+## 38785     34.50  30
+## 38939     50.00  36
+## 40211     45.00  45
+## 40910     39.00  27
+## 41654     39.60  50
+## 42102     20.00  58
+## 42218    259.20  53
+## 42648     47.50  29
+## 42824     60.00  36
+## 43073    216.00  51
+## 43203     16.00  42
+## 44758    259.20  25
+## 44933     29.50  38
+## 45864    216.00  31
+## 47404     39.00  36
+## 47788     39.00  31
+## 49404     26.50  28
+## 49410     72.00  28
+## 49576     39.00  27
+## 49974     21.00  36
+## 51116     18.00  44
+## 51479     33.50  40
+## 51481     33.50  35
+## 52089     30.00  14
+## 54193     22.50  30
+## 54696     47.00  38
+## 54980     48.50  31
+## 55159     72.00  33
+## 55894     86.00  50
+## 55930    161.00  27
+## 56063     76.50  34
+## 56067     67.00  39
+## 57005     18.50  37
+## 57176    105.60  32
+## 58039    216.00  28
+## 58961     60.00  41
+## 60257     33.50  32
+## 60430     26.50  27
+## 60772    412.00  24
+## 61254    216.00  30
+## 61719    112.00  35
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y\_test }\OtherTok{=}\NormalTok{ test[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{x1\_train }\OtherTok{\textless{}{-}}\NormalTok{ train[,}\DecValTok{2}\NormalTok{]}
+\NormalTok{x2\_train }\OtherTok{\textless{}{-}}\NormalTok{ train[,}\DecValTok{3}\NormalTok{]}
+\NormalTok{y\_train }\OtherTok{\textless{}{-}}\NormalTok{ train[,}\DecValTok{1}\NormalTok{]}
+
+\NormalTok{model\_svm }\OtherTok{\textless{}{-}} \FunctionTok{svm}\NormalTok{(Claim}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{train, }\AttributeTok{type =} \StringTok{"C{-}classification"}\NormalTok{, }\AttributeTok{kernel =} \StringTok{"linear"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(model\_svm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## svm(formula = Claim ~ ., data = train, type = "C-classification", 
+##     kernel = "linear")
+## 
+## 
+## Parameters:
+##    SVM-Type:  C-classification 
+##  SVM-Kernel:  linear 
+##        cost:  1 
+## 
+## Number of Support Vectors:  165
+## 
+##  ( 83 82 )
+## 
+## 
+## Number of Classes:  2 
+## 
+## Levels: 
+##  -1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(model\_svm, test[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{])}
+\FunctionTok{confusionMatrix}\NormalTok{(}\FunctionTok{table}\NormalTok{(pred,y\_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##     y_test
+## pred -1  1
+##   -1 95 68
+##   1  11 26
+##                                           
+##                Accuracy : 0.605           
+##                  95% CI : (0.5336, 0.6732)
+##     No Information Rate : 0.53            
+##     P-Value [Acc > NIR] : 0.01962         
+##                                           
+##                   Kappa : 0.179           
+##                                           
+##  Mcnemar's Test P-Value : 2.967e-10       
+##                                           
+##             Sensitivity : 0.8962          
+##             Specificity : 0.2766          
+##          Pos Pred Value : 0.5828          
+##          Neg Pred Value : 0.7027          
+##              Prevalence : 0.5300          
+##          Detection Rate : 0.4750          
+##    Detection Prevalence : 0.8150          
+##       Balanced Accuracy : 0.5864          
+##                                           
+##        'Positive' Class : -1              
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(model\_svm,}\AttributeTok{data =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Net.Sales =}\NormalTok{ train[,}\DecValTok{2}\NormalTok{],}\AttributeTok{Age =}\NormalTok{ train[,}\DecValTok{3}\NormalTok{], }\AttributeTok{Claim =} \FunctionTok{factor}\NormalTok{(train[,}\DecValTok{1}\NormalTok{])))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ass3_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?}\FunctionTok{confusionMatrix}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Help on topic 'confusionMatrix' was found in the following packages:
+## 
+##   Package               Library
+##   caret                 /usr/local/lib/R/4.0/site-library
+##   ModelMetrics          /usr/local/lib/R/4.0/site-library
+## 
+## 
+## Using the first match ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#confusionMatrix()}
+\NormalTok{?matrix}
+\NormalTok{?cbind}
+
+\CommentTok{\# 4. Identify Q, A, q and b for the given training data.}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{diag}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\SpecialCharTok{+}\FunctionTok{nrow}\NormalTok{(train),}\DecValTok{3}\SpecialCharTok{+}\FunctionTok{nrow}\NormalTok{(train))}
+\NormalTok{q }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FunctionTok{nrow}\NormalTok{(train))),}\AttributeTok{ncol =} \DecValTok{1}\NormalTok{)}
+\NormalTok{b }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FunctionTok{nrow}\NormalTok{(train))),}\AttributeTok{ncol =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{first3\_a }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}
+  \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FunctionTok{nrow}\NormalTok{(train)),}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FunctionTok{nrow}\NormalTok{(train)),}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FunctionTok{nrow}\NormalTok{(train)),}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+  \AttributeTok{nrow =} \DecValTok{3}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{3}\SpecialCharTok{+}\FunctionTok{nrow}\NormalTok{(train)}
+\NormalTok{)}
+\NormalTok{last\_a }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(x1\_train}\SpecialCharTok{*}\NormalTok{y\_train,x2\_train}\SpecialCharTok{*}\NormalTok{y\_train,y\_train,}\FunctionTok{diag}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FunctionTok{nrow}\NormalTok{(train),}\FunctionTok{nrow}\NormalTok{(train)))}
+
+\NormalTok{A }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(first3\_a,last\_a)}
+
+\CommentTok{\# 5.Find SVM classiﬁer w ∗ and b ∗ by solving the QP form of (1). Use existing QP solvers, e.g., solve osqp( ) in the R{-}package osqp.}
+
+\NormalTok{?}\FunctionTok{solve\_osqp}\NormalTok{()}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{solve\_osqp}\NormalTok{(P,q,A,}\AttributeTok{u =}\NormalTok{ b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -----------------------------------------------------------------
+##            OSQP v0.6.0  -  Operator Splitting QP Solver
+##               (c) Bartolomeo Stellato,  Goran Banjac
+##         University of Oxford  -  Stanford University 2019
+## -----------------------------------------------------------------
+## problem:  variables n = 203, constraints m = 203
+##           nnz(P) + nnz(A) = 1005
+## settings: linear system solver = qdldl,
+##           eps_abs = 1.0e-03, eps_rel = 1.0e-03,
+##           eps_prim_inf = 1.0e-04, eps_dual_inf = 1.0e-04,
+##           rho = 1.00e-01 (adaptive),
+##           sigma = 1.00e-06, alpha = 1.60, max_iter = 4000
+##           check_termination: on (interval 25),
+##           scaling: on, scaled_termination: off
+##           warm start: on, polish: off, time_limit: off
+## 
+## iter   objective    pri res    dua res    rho        time
+##    1  -6.5714e+01   1.02e+00   6.00e-01   1.00e-01   6.29e-04s
+##   50  -1.0000e+02   4.65e-11   5.97e-04   2.18e-03   1.43e-03s
+## 
+## status:               solved
+## number of iterations: 50
+## optimal objective:    -100.0000
+## run time:             1.44e-03s
+## optimal rho estimate: 1.00e-06
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res}\SpecialCharTok{$}\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1]  5.967096e-04 -3.920038e-05 -1.181932e-07 -9.999999e-01 -1.000000e+00
+##   [6] -1.000000e+00 -9.999999e-01 -1.000000e+00 -9.999999e-01 -9.999999e-01
+##  [11] -9.999999e-01 -1.000000e+00 -9.999999e-01 -9.999999e-01 -1.000000e+00
+##  [16] -9.999999e-01 -1.000000e+00 -9.999999e-01 -1.000000e+00 -9.999999e-01
+##  [21] -9.999999e-01 -9.999999e-01 -9.999999e-01 -1.000000e+00 -9.999999e-01
+##  [26] -9.999999e-01 -9.999999e-01 -9.999999e-01 -1.000000e+00 -9.999999e-01
+##  [31] -9.999999e-01 -1.000000e+00 -9.999999e-01 -1.000000e+00 -1.000000e+00
+##  [36] -9.999999e-01 -9.999999e-01 -1.000000e+00 -9.999999e-01 -1.000000e+00
+##  [41] -1.000000e+00 -9.999999e-01 -1.000000e+00 -1.000000e+00 -1.000000e+00
+##  [46] -1.000000e+00 -1.000000e+00 -9.999999e-01 -9.999999e-01 -1.000000e+00
+##  [51] -1.000000e+00 -1.000000e+00 -9.999999e-01 -9.999999e-01 -9.999999e-01
+##  [56] -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01 -9.999999e-01
+##  [61] -9.999999e-01 -9.999999e-01 -9.999999e-01 -9.999999e-01 -9.999999e-01
+##  [66] -1.000000e+00 -9.999999e-01 -9.999999e-01 -1.000000e+00 -1.000000e+00
+##  [71] -9.999999e-01 -1.000000e+00 -9.999999e-01 -9.999999e-01 -1.000000e+00
+##  [76] -9.999999e-01 -1.000000e+00 -9.999999e-01 -9.999999e-01 -1.000000e+00
+##  [81] -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00
+##  [86] -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00
+##  [91] -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00
+##  [96] -1.000000e+00 -9.999999e-01 -9.999999e-01 -1.000000e+00 -1.000000e+00
+## [101] -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01 -1.000000e+00
+## [106] -1.000000e+00 -1.000000e+00 -9.999999e-01 -1.000000e+00 -1.000000e+00
+## [111] -1.000000e+00 -9.999999e-01 -9.999999e-01 -9.999999e-01 -1.000000e+00
+## [116] -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01 -9.999999e-01
+## [121] -9.999999e-01 -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01
+## [126] -1.000000e+00 -1.000000e+00 -9.999999e-01 -1.000000e+00 -1.000000e+00
+## [131] -9.999999e-01 -9.999999e-01 -9.999999e-01 -9.999999e-01 -1.000000e+00
+## [136] -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01
+## [141] -1.000000e+00 -9.999999e-01 -9.999999e-01 -9.999999e-01 -1.000000e+00
+## [146] -9.999999e-01 -9.999999e-01 -9.999999e-01 -9.999999e-01 -9.999999e-01
+## [151] -9.999999e-01 -1.000000e+00 -9.999999e-01 -9.999999e-01 -9.999998e-01
+## [156] -1.000000e+00 -1.000000e+00 -9.999999e-01 -1.000000e+00 -1.000000e+00
+## [161] -9.999999e-01 -1.000000e+00 -9.999999e-01 -9.999999e-01 -1.000000e+00
+## [166] -9.999999e-01 -9.999999e-01 -9.999999e-01 -9.999999e-01 -9.999999e-01
+## [171] -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01
+## [176] -1.000000e+00 -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01
+## [181] -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01 -1.000000e+00
+## [186] -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01 -1.000000e+00
+## [191] -9.999999e-01 -9.999999e-01 -1.000000e+00 -9.999999e-01 -9.999999e-01
+## [196] -9.999999e-01 -1.000000e+00 -1.000000e+00 -1.000000e+00 -9.999999e-01
+## [201] -1.000000e+00 -9.999999e-01 -1.000000e+00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#w1 = 5.967096e{-}04}
+\CommentTok{\#w2 = {-}3.920038e{-}05}
+\CommentTok{\#b = {-}1.181932e{-}07}
+
+\CommentTok{\#6. Use the result of the previous part to predict Claim for the testing data. What is the c?}
+
+\NormalTok{w\_star }\OtherTok{=}\NormalTok{ res}\SpecialCharTok{$}\NormalTok{x[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{]}
+\NormalTok{w\_star}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  5.967096e-04 -3.920038e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b\_star }\OtherTok{=}\NormalTok{ res}\SpecialCharTok{$}\NormalTok{x[}\DecValTok{3}\NormalTok{]}
+\NormalTok{b\_star}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.181932e-07
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y\_pred\_raw }\OtherTok{=}\NormalTok{ x\_test}\SpecialCharTok{\%*\%}\NormalTok{w\_star }\SpecialCharTok{+}\NormalTok{ b\_star}
+\NormalTok{y\_pred }\OtherTok{=}\NormalTok{ y\_pred\_raw}
+\NormalTok{y\_pred[y\_pred}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{] }\OtherTok{=} \DecValTok{1}
+\NormalTok{y\_pred[y\_pred}\SpecialCharTok{\textless{}}\DecValTok{0}\NormalTok{] }\OtherTok{=} \SpecialCharTok{{-}}\DecValTok{1}
+
+\FunctionTok{confusionMatrix}\NormalTok{(}\FunctionTok{table}\NormalTok{(y\_pred,y\_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Confusion Matrix and Statistics
+## 
+##       y_test
+## y_pred  -1   1
+##     -1   6   0
+##     1  100  94
+##                                           
+##                Accuracy : 0.5             
+##                  95% CI : (0.4287, 0.5713)
+##     No Information Rate : 0.53            
+##     P-Value [Acc > NIR] : 0.8215          
+##                                           
+##                   Kappa : 0.0534          
+##                                           
+##  Mcnemar's Test P-Value : <2e-16          
+##                                           
+##             Sensitivity : 0.0566          
+##             Specificity : 1.0000          
+##          Pos Pred Value : 1.0000          
+##          Neg Pred Value : 0.4845          
+##              Prevalence : 0.5300          
+##          Detection Rate : 0.0300          
+##    Detection Prevalence : 0.0300          
+##       Balanced Accuracy : 0.5283          
+##                                           
+##        'Positive' Class : -1              
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#the result is 50\%}
+
+
+\CommentTok{\# 7.Make a scatter plot to illustrate predicted outcome. Use Net.Sales as the horizontal axis and Age as the vertical axis. Use diﬀerent colors to represent response classes.}
+\NormalTok{?}\FunctionTok{plot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Help on topic 'plot' was found in the following packages:
+## 
+##   Package               Library
+##   pROC                  /usr/local/lib/R/4.0/site-library
+##   graphics              /usr/local/Cellar/r/4.0.3_2/lib/R/library
+##   base                  /usr/local/Cellar/r/4.0.3_2/lib/R/library
+## 
+## 
+## Using the first match ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(train[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{],}\AttributeTok{col=}\FunctionTok{factor}\NormalTok{(train[,}\DecValTok{1}\NormalTok{]))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ass3_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\end{document}
